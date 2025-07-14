@@ -6,7 +6,7 @@ import createSagaMiddleware from 'redux-saga'
 
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+//import registerServiceWorker from './registerServiceWorker';
 import setupSocket from './sockets'
 import reducers from './reducers'
 import handleNewMessage from './sagas'
@@ -29,6 +29,6 @@ ReactDOM.render(
 	</Provider>, 
 	document.getElementById('root')
 	);
-registerServiceWorker();
+//registerServiceWorker();
 
 
