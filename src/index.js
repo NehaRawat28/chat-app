@@ -1,32 +1,42 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import createSagaMiddleware from "redux-saga";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 
-import App from "./App";
-import reducers from "./reducers";
+import './index.css';
+import App from './App';
+import reducers from './reducers';
+import handleNewMessage from './sagas';
+import setupSocket from './sockets';
+import username from './utils/name';
 
-import setupSocket from "./sockets";
-import handleNewMessage from "./sagas";
-import username from "./utils/name";
-
-// ✅ 1. create saga middleware
+document.title = "Connectly";
 const sagaMiddleware = createSagaMiddleware();
 
-// ✅ 2. create store with middleware
+// ✅ 1️⃣ Create store first
 const store = createStore(
   reducers,
   applyMiddleware(sagaMiddleware)
 );
 
-// ✅ 3. setup WebSocket AFTER store is created
-const socket = setupSocket(store.dispatch, username);
+// ✅ 2️⃣ Expose globally AFTER creation
+window.store = store;
 
-// ✅ 4. run saga AFTER socket is ready
+// ✅ 3️⃣ Setup socket
+const socket = setupSocket(store.dispatch, username);
 sagaMiddleware.run(handleNewMessage, { socket, username });
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+// ✅ 4️⃣ (Optional) Inject test users
+store.dispatch({
+  type: 'USERS_LIST',
+  users: [
+    { id: 1, name: 'Alice' },
+    { id: 2, name: 'Bob' }
+  ]
+});
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <App />

@@ -1,10 +1,8 @@
-import { combineReducers } from "redux"
-import messages from "./messages"
-import users from "./users"
+import { combineReducers } from 'redux';
+import messages from './messages';
+import users from './users';  // ✅ include users reducer
 
-const chat = combineReducers({
-	messages,
-	users
-})
-
-export default chat
+export default combineReducers({
+  messages,
+  users   // ✅ must be here
+});

@@ -1,37 +1,247 @@
-@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+/* Global styles */
 body {
-    font-family: "Press Start 2P";
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f6f9;
+  color: #333;
 }
+
 #container {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-areas: "sidebar main";
-    width: 100vw;
-    height: 100vh;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  height: 100vh;
 }
+
+/* Sidebar styling */
+aside.sidebar {
+  background: #2d3436;
+  color: white;
+  padding: 20px;
+  border-right: 2px solid #ccc;
+  overflow-y: auto;
+}
+
+aside.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+aside.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+aside.sidebar li {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+/* Main chat area */
 #main {
-    grid-area: main;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
+
+header.chat-header {
+  background: #0984e3;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+section#messages-list {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background: white;
+}
+
+section#messages-list p {
+  margin: 10px 0;
+  padding: 10px 15px;
+  background: #dfe6e9;
+  border-radius: 12px;
+  max-width: 60%;
+  line-height: 1.4;
+}
+
+/* Different color for "Me" */
+section#messages-list p.me {
+  background: #74b9ff;
+  color: white;
+  margin-left: auto;
+}
+
+/* Message input box */
 #new-message {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 5px;
-    margin-left: 0px;
-    border-top: 1px solid #3f3f3f;
+  display: flex;
+  padding: 15px;
+  background: #f1f2f6;
+  border-top: 2px solid #ccc;
 }
-#messages-list {
-    padding: 5px 0 0 5px;
+
+#new-message input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 16px;
 }
-#sidebar {
-    grid-area: sidebar;
-    padding: 5px 0 0 5px;
-    border-right: 1px solid #3f3f3f;
-    height: 100%;
+
+#new-message button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  background: #0984e3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
 }
+
+#new-message button:hover {
+  background: #74b9ff;
+}
+
+/* Chat Messages Styling */
+.message {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  max-width: 70%;
+}
+
+.message.other {
+  align-items: flex-start;
+}
+
+.message.me {
+  align-items: flex-end;
+  margin-left: auto;
+}
+
+.message .author {
+  font-size: 12px;
+  font-weight: bold;
+  color: #888;
+  margin-bottom: 3px;
+}
+
+.message .bubble {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.message.other .bubble {
+  background: #f1f1f1;
+  color: #000;
+  border-top-left-radius: 0;
+}
+
+.message.me .bubble {
+  background: #007bff;
+  color: white;
+  border-top-right-radius: 0;
+}
+
+/* Chat input bar */
+.chat-input-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background: #fff;
+}
+
+.chat-input-container input {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  margin-right: 10px;
+}
+
+.chat-input-container button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.chat-input-container button:hover {
+  background: #0056b3;
+}
+
+.timestamp {
+  font-size: 11px;
+  color: #000;
+  margin-top: 4px;
+  text-align: right;
+}
+
+.actions {
+  margin-top: 5px;
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.actions button:hover {
+  color: #000;
+}
+
+.edited {
+  font-size: 10px;
+  color: #999;
+  margin-left: 5px;
+}
+.chat-header {
+  background: #2c3e50; /* Same as sidebar */
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* Logout button styled like sidebar */
+.logout-btn {
+  background: #e74c3c;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #c0392b;
+}
+
+
+

@@ -1,29 +1,32 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-const AddMessage = (props) => {
-	let input
+const AddMessage = ({ dispatch }) => {
+  const [inputValue, setInputValue] = useState("");
 
-	return (
-		<section id="new-message">
-			<input
-				onKeyPress={(e) => {
-					if (e.key === 'Enter') {
-						props.dispatch(input.value, 'Me')
-						input.value = ''
-					}
-				}}
-				type="text"
-				ref={(node) => {
-					input = node
-				}}
-			/>
-		</section>
-	)
-}
+  const handleSend = () => {
+    if (inputValue.trim() !== "") {
+      dispatch(inputValue, "Me");
+      setInputValue("");
+    }
+  };
+
+  return (
+    <div className="chat-input-container">
+      <input
+        type="text"
+        placeholder="Type a message..."
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        onKeyPress={(e) => e.key === "Enter" && handleSend()}
+      />
+      <button onClick={handleSend}>Send</button>
+    </div>
+  );
+};
 
 AddMessage.propTypes = {
-	dispatch: PropTypes.func.isRequired
-}
+  dispatch: PropTypes.func.isRequired,
+};
 
-export default AddMessage
+export default AddMessage;
